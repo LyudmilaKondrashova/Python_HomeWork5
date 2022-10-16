@@ -1,4 +1,7 @@
 #1. Напишите программу, удаляющую из текста все слова, содержащие ""абв"".
+import re
+
+
 def DelABV():
     stroka = input('Введите строку:\n')
     new_str = [word for word in stroka.split() if 'абв' not in word]
@@ -403,20 +406,41 @@ def DeCodeText(text):
     return decode_text
 
 def CodeDecodeText():
-    data = input('Введите текст для кодирования: ')
+    file_for_code = open('TextForCode.txt', 'r')
+    data = file_for_code.readline()
+    file_for_code = open('TextForCode.txt', 'r')
+    print('Исходный текст для кодирования: ')
+    print(file_for_code.read())
+    file_for_code.close()
     data = data.rstrip()
     if data == '':
         print('Не введен текст для кодирования!')
     else:
         code_data = CodeText(data)
-        print(f'{code_data}')
-    data1 = input('Введите текст для декодирования: ')
+        code_file = open('CodeText.txt', 'w')
+        code_file.writelines(code_data)
+        code_file = open('CodeText.txt', 'r')
+        print('Текст после кодирования: ')
+        print(code_file.read())
+        code_file.close()
+    file_for_decode = open('TextForDecode.txt', 'r')
+    data1 = file_for_decode.readline()
+    file_for_decode = open('TextForDecode.txt', 'r')
+    print('Исходный текст для декодирования: ')
+    print(file_for_decode.read())
+    file_for_decode.close()
+    data1 = data1.rstrip()
     if data1 == '':
         print('Не введен текст для декодирования!')
     else:
         decode_data = DeCodeText(data1)
         if decode_data != '':
-            print(decode_data)
+            decode_file = open('DecodeText.txt', 'w')
+            decode_file.writelines(decode_data)
+            decode_file = open('DecodeText.txt', 'r')
+            print('Текст после декодирования: ')
+            print(decode_file.read())
+            decode_file.close()
         else:
             print('Строка не подходит для декодирования')
 
